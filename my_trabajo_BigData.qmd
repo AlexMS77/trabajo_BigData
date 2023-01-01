@@ -770,7 +770,7 @@ image_animate(image_scale(transformacion), fps = 0.5)
 Esta es la evolución de zombies asesinados frente a los humanos.
 
 ```{r}
-#| code-fold: false
+#| code-fold: true
 
 image_1 <- "./imagenes/humans.png" 
 image_2 <- "./imagenes/zombie.png"
