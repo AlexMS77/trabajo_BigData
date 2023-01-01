@@ -1,0 +1,78 @@
+/* css styles */
+
+
+h3 {
+  font-weight: bold;
+  background-color: #301E1E;
+  color: white; text-shadow: black 0.1em 0.1em 0.2em;
+  box-shadow: 2px 2px 10px #666;
+  
+} 
+
+
+table th {
+background-color: #301E1E;
+color: white;   
+}
+
+/* justificar el texto */ 
+p, ul, ol, h3 {
+  text-align: justify; }       
+  
+  
+ /* hacer cambios en el texto en negrita */ 
+  strong {
+    color: "black"; }
+
+
+/* cambiar el color de los hipervinculos/enlaces  */
+  a {
+    color: grey;
+    font-weight: bold; }
+
+/* definiendo estilos de las cajas de código (chunks) */ 
+  pre {
+    background-color: white;  /* color de las cajas de código */ 
+      font-size: 8pt;
+    border-radius: 9px;     /* q los bordes de las cajas sean redondas */ 
+      font-family: "Times New Roman", Times, serif; }
+
+/* definiendo estilos de los párrafos */ 
+  p {
+    text-align: justify;         /* justificar el texto del body */      
+      line-height: 1.4;            /* anchura entre las lineas 1.0 is the default in Firefox. 2.0 provides a large space */     
+      margin: 10px 0px 10px 0px;    /* margenes entre los párafos: top, izquierda, abajo, left */   
+      font-size: 15pt;                                     /* tamaño de letra */   
+      font-family: "Times New Roman", Times, serif; }   /* tipo de letra, previamente la he importado */  
+  
+ 
+   
+/* definiendo estilos del body : de toda la página */ 
+  body { 
+    background-color: #330000; }  /* color del fondo*/ 
+
+      
+
+      
+/* definiendo estilos de los títulos de primer nivel (h1) */ 
+      h0 {
+        color: #E0E0E0;
+          margin-top: 45px;       /* dejar algo de espacio (45 pixeles) antes de un título de primer nivel*/ 
+          margin-bottom: 35px; }  /* dejar algo de espacio despúes de un título de primer nivel*/ 
+      
+      
+      /* definiendo estilos de los títulos de h1 a h5 nivel */ 
+      h1, h2, h3, h4, h5 { 
+        color: #E0E0E0;
+          letter-spacing: 0.04em;  /* espaciado enre las letras (0.04 de la altura de la tipografía) */
+          margin-left: 15px;
+          font-family: "Arial", Helvetica, sans-serif;}  /* dejar espacio a la izquierda*/ 
+      
+      
+      /* definiendo estilos del titulo del documento */ 
+      .title {
+        font-size: 45px;
+        color: white;
+        text-align: center;
+        font-family: "Dead Kansas";}
+
