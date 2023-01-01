@@ -1,0 +1,178 @@
+season,episode,episode(overall),title,rotten_tomato_score
+1,1,1,Days Gone Bye,100%
+1,2,2,Guts,75%
+1,3,3,Tell It to the Frogs,92%
+1,4,4,Vatos,91%
+1,5,5,Wildfire,91%
+1,6,6,TS-19,82%
+2,1,7,What Lies Ahead,90%
+2,2,8,Bloodletting,67%
+2,3,9,Save the Last One,79%
+2,4,10,Cherokee Rose,50%
+2,5,11,Chupacabra,71%
+2,6,12,Secrets,75%
+2,7,13,Pretty Much Dead Already,93%
+2,8,14,Nebraska,67%
+2,9,15,Triggerfinger,75%
+2,10,16,18 Miles Out,85%
+2,11,17,Judge Jury Executioner,62%
+2,12,18,Better Angels,100%
+2,13,19,Beside the Dying Fire,92%
+3,1,20,Seed,100%
+3,2,21,Sick,94%
+3,3,22,Walk With Me,100%
+3,4,23,Killer Within,87%
+3,5,24,Say the Word,100%
+3,6,25,Hounded,89%
+3,7,26,When the Dead Come Knocking,100%
+3,8,27,Made to Suffer,81%
+3,9,28,The Suicide King,71%
+3,10,29,Home,71%
+3,11,30,I Aint a Judas,80%
+3,12,31,Clear,100%
+3,13,32,Arrow on the Doorpost,61%
+3,14,33,Prey,65%
+3,15,34,This Sorrowful Life,83%
+3,16,35,Welcome to the Tombs,43%
+4,1,36,30 Days Without an Accident,93%
+4,2,37,Infected,100%
+4,3,38,Isolation,86%
+4,4,39,Indifference,88%
+4,5,40,Internment,89%
+4,6,41,Live Bait,67%
+4,7,42,Dead Weight,50%
+4,8,43,Too Far Gone,88%
+4,9,44,After,83%
+4,10,45,Inmates,68%
+4,11,46,Claimed,86%
+4,12,47,Still,89%
+4,13,48,Alone,72%
+4,14,49,The Grove,79%
+4,15,50,Us,90%
+4,16,51,A,90%
+5,1,52,No Sanctuary,100%
+5,2,53,Strangers,100%
+5,3,54,Four Walls and a Roof,87%
+5,4,55,Slabtown,65%
+5,5,56,Self Help,100%
+5,6,57,Consumed,89%
+5,7,58,Crossed,84%
+5,8,59,Coda,61%
+5,9,60,What Happened and Whats Going On,100%
+5,10,61,Them,55%
+5,11,62,The Distance,81%
+5,12,63,Remember,100%
+5,13,64,Forget,96%
+5,14,65,Spend,87%
+5,15,66,Try,85%
+5,16,67,Conquer,83%
+6,1,68,First Time Again,92%
+6,2,69,JSS,97%
+6,3,70,Thank You,94%
+6,4,71,Heres Not Here,91%
+6,5,72,Now,46%
+6,6,73,Always Accountable,77%
+6,7,74,Heads Up,50%
+6,8,75,Start to Finish,35%
+6,9,76,No Way Out,97%
+6,10,77,The Next World,94%
+6,11,78,Knots Untie,96%
+6,12,79,Not Tomorrow Yet,97%
+6,13,80,The Same Boat,97%
+6,14,81,Twice as Far,58%
+6,15,82,East,63%
+6,16,83,Last Day on Earth,42%
+7,1,84,The Day Will Come When You Wont Be,67%
+7,2,85,The Well,95%
+7,3,86,The Cell,73%
+7,4,87,Service,61%
+7,5,88,Go Getters,74%
+7,6,89,Swear,61%
+7,7,90,Sing Me a Song,78%
+7,8,91,Hearts Still Beating,76%
+7,9,92,Rock in the Road,88%
+7,10,93,New Best Friends,83%
+7,11,94,Hostiles and Calamities,86%
+7,12,95,Say Yes,76%
+7,13,96,Bury Me Here,85%
+7,14,97,The Other Side,72%
+7,15,98,Something They Need,67%
+7,16,99,The First Day of the Rest of Your Life,83%
+8,1,100,Mercy,91%
+8,2,101,The Damned,54%
+8,3,102,Monsters,56%
+8,4,103,Some Guy,90%
+8,5,104,The Big Scary U,76%
+8,6,105,The King the Widow and Rick,36%
+8,7,106,Time for After,74%
+8,8,107,How Its Gotta Be,64%
+8,9,108,Honor,80%
+8,10,109,The Lost and the Plunderers,78%
+8,11,110,Dead or Alive Or,59%
+8,12,111,The Key,85%
+8,13,112,Do Not Send Us Astray,74%
+8,14,113,Still Gotta Mean Something,69%
+8,15,114,Worth,89%
+8,16,115,Wrath,76%
+9,1,116,A New Beginning,97%
+9,2,117,The Bridge,100%
+9,3,118,Warning Signs,100%
+9,4,119,The Obliged,90%
+9,5,120,What Comes After,76%
+9,6,121,Who Are You Now?,83%
+9,7,122,Stradivarius,79%
+9,8,123,Evolution,82%
+9,9,124,Adaptation,92%
+9,10,125,Omega,79%
+9,11,126,Bounty,79%
+9,12,127,Guardians,82%
+9,13,128,Chokepoint,90%
+9,14,129,Scars,85%
+9,15,130,The Calm Before,91%
+9,16,131,The Storm,90%
+10,1,132,Lines We Cross,93%
+10,2,133,We Are the End of the World,89%
+10,3,134,Ghosts,84%
+10,4,135,Silence the Whisperers,94%
+10,5,136,What It Always Is,89%
+10,6,137,Bonds,95%
+10,7,138,Open Your Eyes,95%
+10,8,139,The World Before,90%
+10,9,140,Squeeze,95%
+10,10,141,Stalker,100%
+10,11,142,Morning Star,94%
+10,12,143,Walk With Us,94%
+10,13,144,What We Become,83%
+10,14,145,Look at the Flowers,88%
+10,15,146,The Tower,83%
+10,16,147,A Certain Doom,89%
+10,17,148,Home Sweet Home,88%
+10,18,149,Find Me,64%
+10,19,150,One More,100%
+10,20,151,Splinter,64%
+10,21,152,Diverged,36%
+10,22,153,Heres Negan,86%
+11,1,154,Acheron: Part 1,92%
+11,2,155,Acheron: Part 2,91%
+11,3,156,Hunted,54%
+11,4,157,Rendition,67%
+11,5,158,Out of the Ashes,75%
+11,6,159,On the Inside,100%
+11,7,160,Promises Broken,92%
+11,8,161,For Blood,82%
+11,9,162,No Other Way,100%
+11,10,163,New Haunts,89%
+11,11,164,Rogue Element,71%
+11,12,165,The Lucky Ones,86%
+11,13,166,Warlords,86%
+11,14,167,The Rotten Core,100%
+11,15,168,Trust,83%
+11,16,169,Acts of God,75%
+11,17,170,Lockdown,73%
+11,18,171,A New Deal,71%
+11,19,172,Variant,89%
+11,20,173,What's Been Lost,75%
+11,21,174,Outpost 22,71%
+11,22,175,Faith,86%
+11,23,176,Family,78%
+11,24,177,Rest in Peace,67%

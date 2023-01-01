@@ -1,0 +1,930 @@
+---
+title: "La mejor serie: The Walking Dead"
+description: |
+author: Alex Monzó Santana (amonsan7@uv.es)  #--
+date: 2023-01-02                 #--
+categories: [trabajo BigData, serie]   #--
+image: "./imagenes/imagen_01.png"
+title-block-banner: true #- {true, false, "green","#AA0000"}
+title-block-banner-color: "white"    #-"#FFFFFF" 
+toc: true
+toc-location: left
+toc-depth: 3
+smooth-scroll: true
+format: 
+  html:
+    #backgroundcolor: "#F1F3F4"
+    #standalone: true  
+    link-external-newwindow: true
+    #css: ./assets/my_css_file.css   #- CUIDADO!!!!
+code-tools: true
+code-link: true
+---
+
+```{css, echo=FALSE} 
+
+h1,h2,h3,h4,h5,h6,p, table {
+  font-family: "Times New Roman", Times, serif;
+  color: white
+}
+```
+
+### 1. Introducción
+
+The Walking Dead es una serie de televisión americana de horror, drama y thriller basada en los comics de Robert Kirkman, el autor de la novela gráfica, aunque la serie no sigue del todo el guion del comic.
+
+La serie se estreno en los Estados Unidos a través de la cadena AMC el 31 de octubre de 2010, el día de Halloween y ha seguido emitiéndose de forma continua hasta el 20 de noviembre de 2022, que es cuando la historia principal finaliza en la onceava temporada con un total de 177 episodios.
+
+No obstante, el universo de The Walking Dead no se ha acabado ni mucho menos y es que su legado sigue con otras tres series mas que van a estrenarse próximamente y Fear The Walking Dead, serie que se emitió por primera vez en 2015.
+
+La trama se centra en un mundo distópico en el cual hubo un brote de un virus repentino y de propagación extremadamente rápida que convertía a los humanos en zombies después de la muerte. Estos seres son los que ponen en peligro a los protagonistas, aunque no son los únicos enemigos, pues las personas también son igual o más peligrosas. 
+
+La serie está centrada en los Estados Unidos, país que ha sido devastado por la catástrofe, aunque también ha devastado el resto del mundo. 
+
+---
+
+### 2. Motivaciones
+
+He decidido hacer el trabajo sobre The Walking Dead porque ha sido una de mis series favoritas y la llevo viendo continuamente desde el 2013, además me gusta mucho la temática zombie y la trama que se narra en la serie, aunque es verdad que hay temporadas que no he visto cuando salieron porque me desenganché, aunque al final si que la he podido terminar este año.
+
+Por otro lado, me parecía curioso hacer un trabajo sobre esta serie ya que no había muchos datos disponibles y me ha supuesto un reto poder hacer este trabajo, aunque me ha gustado bastante el hacerlo y cómo ha quedado.	
+
+---
+
+### 3. Datos utilizados
+
+Como he dicho antes, los datos me han costado un poco encontrarlos, incluso ha habido algunos que he tenido que crear yo fijándome en la Wikipedia de la serie.
+
+Eso sí, los datos de las estadísticas de los episodios, los he obtenido de Kaggle, gracias a la aportación de un usuario que además es el único aporte que encontré.
+
+Para sacar otros datos he tenido que usar incluso Python, aunque como no sabía ese lenguaje, no me funciono del todo y lo tuve que dejar (de ahí que algunos datos no sean los más nuevos ni esten actualizados).
+
+Así que principalmente he usado la Wikipedia de la serie, la Wikipedia normal y Kaggle para sacar los datos.
+
+::: {.panel-tabset}
+
+### Paquetes
+
+```{r}
+#| code-fold: true
+
+library(tidyverse)
+library(tidyr)
+library(magick) # PARA PODER HACER EL GRAFICO DE LAS IMAGENES DEL TITULO 
+library(ggplot2)
+library(gganimate)
+library(ggthemes)
+library(ggThemeAssist)
+library(gt)
+library(gtExtras) # PARA HACER MEJOR LAS TABLAS
+library(hrbrthemes)
+library(forcats)
+library(robservable) # PARA HACER EL GRAFICO DINAMICO DE LAS APARICIONES
+library(ggimage) # PARA INSERTAR IMAGENES EN LAS TABLAS
+library(viridis)
+library(dplyr)
+library(plotly) # PARA HACER LA FIGURA 3D
+library(treemap)
+
+```
+
+### Códigos
+
+```{r}
+#| code-fold: true
+
+
+datos_episodios1 <- read.csv("datos/walking_dead_episodes_rotten-tomatoes.csv")
+datos_episodios2 <- read.csv("datos/walking_dead_episodes_imdb.csv")
+datos_episodios3 <- read.csv("datos/walking_dead_episodes_2.csv")
+
+datos_episodios1 <- datos_episodios1 %>%
+  rename(episodes.overall. = episode.overall.)
+
+datos_episodios3 <- datos_episodios3 %>%
+  rename(episodes.overall. = Episode.overall.)
+
+# DATOS SOBRE OTRAS SERIES Y TWD, ESPECTADORES, TIEMPO DE EMISION, VALORACION...
+
+datos_series1 <- read.csv("datos/series_data.csv")
+datos_series2 <- read.csv("datos/imdb_top_250_series_global_ratings.csv")
+datos_series3 <- read.csv("datos/imdb_top_250_series_episode_ratings.csv")
+
+
+personajes_S9 <- read.csv("datos/wd_char_1.csv") # DATOS SOBRE PERSONAJES, NOMBRE, MUERTE, CAUSA DE MUERTE, PRIMERA APARICION, RAZA HASTA LA SEASON 9
+deaths <- read.csv("datos/deaths.csv") # MUERTES DE HUMANOS Y ZOMBIES, HECHO EL CSV POR MI
+kill_count <- read.csv("datos/kills.csv") # MUESTRA LOS ASESINATOS DE PERSONAS DIRECTAS E INDIRECTAS
+muertes <- read.csv("datos/muertes1.csv") # MUERTES DE LOS PERSONAJES PRINCIPALES Y RECURRENTES Y SUS NOMBRES Y EN QUE TEMPORADA OCURRIERON
+
+apariciones <- read.csv("datos/apariciones.csv")
+
+premios_actores <- read.csv("datos/nominaciones_y_premios.csv") #EN WIKIPEDIA COJO LA TABLA DE PREMIOS DE TWD POR PERSONAJE Y LA TRANSFORMO
+premios_serie <- read.csv("datos/premios_serie.csv") # AL FINAL NO LO HE USADO
+
+# EN ESTAS TABLAS ORDENAMOS LOS DATOS DE MANERA QUE LOS PODAMOS USAR DE FORMA SENCILLA
+
+aaa <- inner_join(datos_episodios1, datos_episodios2, by = "episodes.overall.")
+
+bbb <- inner_join(aaa, datos_episodios3, by = "episodes.overall.")
+
+tabla_buena_episodios <- bbb %>%
+  select(season, episode, episodes.overall., title.x, rating, votes, Directed.by, US.viewers.millions.) %>%
+  rename(Temporada = season, Episodio = episode, Titulo = title.x, Nota = rating, Votos = votes, Director = Directed.by, Espectadores_EEUU = US.viewers.millions., Episodio_total = episodes.overall.)
+
+tabla_espectadores <- bbb %>%
+  select(season, episode, episodes.overall., title.y, rating, votes, Directed.by, US.viewers.millions.) %>%
+  rename(Temporada = season, Episodio = episode, Titulo = title.y, Nota = rating, Votos = votes, Director = Directed.by, Espectadores_EEUU = US.viewers.millions., Episodio_total = episodes.overall.) %>%
+  select(Temporada, Episodio_total, Espectadores_EEUU)
+
+```
+
+:::
+
+---
+
+### 4. Comparación con otras series
+
+The Walking Dead ha sido una de las series mas exitosas de la historia, ganando un montón de premios y buenas criticas durante su historia. 
+
+Bien es cierto, que no es la mejor serie de la historia, como se puede ver en muchas páginas de críticas por los altibajos que ha tenido durante su historia.
+
+En esta tabla se puede ver por orden ascendente las mejores series de la historia según los fans, en el caso de **The Walking Dead** se encuentra en el puesto 72 con un 8.2 de nota.
+
+
+```{r}
+#| code-fold: true
+
+# PONGO LAS 100 MEJORES SERIES SEGUN LOS VOTOS, SERIES CON VOTOS SUFICIENTES
+
+serie_1 <- datos_series1 %>%
+  select(c(Series_Title, IMDB_Rating, No_of_Votes, Genre)) %>%
+  rename(Titulo = Series_Title, Valoracion = IMDB_Rating, Votos = No_of_Votes, Genero = Genre) %>%
+  slice_max(Votos, n = 100) %>%
+  arrange(desc(Valoracion))
+
+DT::datatable(serie_1)
+
+```
+
+---
+
+### 5. Evolución de la serie
+
+Anteriormente habíamos comentado que The Walking Dead ha tenido sus altibajos durante su historia y eso se puede observar en esta gráfica que muestra la evolución de los espectadores durante las 11 temporadas.
+
+
+```{r}
+#| code-fold: true
+
+
+
+```
+
+Se ve claramente un continuo descenso que proviene desde la temporada 7, hasta llegar a un mínimo de espectadores de 1’2 millones de espectadores en la ultimo temporada.
+
+Algunos de los motivos que yo creo que han hecho que ocurriera esto son:
+
+-	**Monotonía y episodios aburridos:** hay bastantes episodios que siguen el mismo guion de narrativa y son muy predecibles.
+
+-	**Muertes innecesarias de personajes importantes:** algunos personajes han muerto sin ninguna necesidad y ha hecho que mucha gente dejara de ver la serie por ese motivo.
+
+-	**Mala gestión de los showruners:** en relación al primer punto, la culpa de esos malos episodios es en gran parte por los showrunners que son las personas encargadas de dirigir el episodio y la historia que se narra.
+
+
+```{r}
+#| code-fold: true
+
+espectadores <- tabla_espectadores %>%
+  ggplot(aes(x = Episodio_total, y = Espectadores_EEUU)) + geom_line(color = "grey25") + theme_stata() + scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0)) + ylim(c(NA, 18)) +
+  labs(title = "Evolución del número de espectadores en EEUU, en millones") +
+  labs(caption = "Datos de IMDB") +
+  labs(x = "Capítulos") +
+  labs(y = "Espectadores") +
+  annotate("rect",xmin=0, xmax = 6,ymin = -Inf,ymax = Inf,alpha=0.4,fill="lightblue") + 
+  annotate("rect",xmin=6, xmax = 19,ymin = -Inf,ymax = Inf,alpha=0.2,fill="lightblue") + 
+  annotate("rect",xmin=19, xmax = 35,ymin = -Inf,ymax = Inf,alpha=0.4,fill="lightblue") + 
+  annotate("rect",xmin=35, xmax = 51,ymin = -Inf,ymax = Inf,alpha=0.2,fill="lightblue") + 
+  annotate("rect",xmin=51, xmax = 67,ymin = -Inf,ymax = Inf,alpha=0.2,fill="green") + 
+  annotate("rect",xmin=67, xmax = 83,ymin = -Inf,ymax = Inf,alpha=0.4,fill="lightblue") + 
+  annotate("rect",xmin=83, xmax = 99,ymin = -Inf,ymax = Inf,alpha=0.4,fill="red") + 
+  annotate("rect",xmin=99, xmax = 115,ymin = -Inf,ymax = Inf,alpha=0.2,fill="lightblue") + 
+  annotate("rect",xmin=115, xmax = 131,ymin = -Inf,ymax = Inf,alpha=0.4,fill="lightblue") + 
+  annotate("rect",xmin=131, xmax = 152,ymin = -Inf,ymax = Inf,alpha=0.2,fill="lightblue") + 
+  annotate("rect",xmin=152, xmax = 177,ymin = -Inf,ymax = Inf,alpha=0.4,fill="lightblue") +
+  annotate(geom = "text", x= 3, y = 17.5,label = "S1", size = 3) +
+  annotate(geom = "text", x= 14, y = 17.5,label = "S2", size = 3) +
+  annotate(geom = "text", x= 27, y = 17.5,label = "S3", size = 3) +
+  annotate(geom = "text", x= 43, y = 17.5,label = "S4", size = 3) +
+  annotate(geom = "text", x= 59, y = 17.5,label = "S5", size = 3) +
+  annotate(geom = "text", x= 75, y = 17.5,label = "S6", size = 3) +
+  annotate(geom = "text", x= 91, y = 17.5,label = "S7", size = 3) +
+  annotate(geom = "text", x= 107, y = 17.5,label = "S8", size = 3) +
+  annotate(geom = "text", x= 123, y = 17.5,label = "S9", size = 3) +
+  annotate(geom = "text", x= 141, y = 17.5,label = "S10", size = 3) +
+  annotate(geom = "text", x= 165, y = 17.5,label = "S11", size = 3) + theme(axis.title = element_text(family = "serif",
+    size = 12), plot.title = element_text(family = "AvantGarde",
+    size = 12, face = "bold", hjust = 0)) + scale_x_continuous( breaks = seq(0, 180, 25))
+
+espectadores
+
+```
+
+Un aspecto curioso que poco se comenta y que a mí me parece curioso es que el título que sale al inicio de cada capítulo ha evolucionado cada temporada como se puede ver a continuación:
+
+```{r}
+#| code-fold: true
+
+s1 <- image_read("./imagenes/titulo/s1.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 1", size = 20, gravity = "southwest", color = "grey")
+s2 <- image_read("./imagenes/titulo/s2.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 2", size = 20, gravity = "southwest", color = "grey")
+s3 <- image_read("./imagenes/titulo/s3.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 3", size = 20, gravity = "southwest", color = "grey")
+s4 <- image_read("./imagenes/titulo/s4.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 4", size = 20, gravity = "southwest", color = "grey")
+s5 <- image_read("./imagenes/titulo/s5.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 5", size = 20, gravity = "southwest", color = "grey")
+s6 <- image_read("./imagenes/titulo/s6.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 6", size = 20, gravity = "southwest", color = "grey")
+s7 <- image_read("./imagenes/titulo/s7.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 7", size = 20, gravity = "southwest", color = "grey")
+s8 <- image_read("./imagenes/titulo/s8.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 8", size = 20, gravity = "southwest", color = "grey")
+s9 <- image_read("./imagenes/titulo/s9.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 9", size = 20, gravity = "southwest", color = "grey")
+s10 <- image_read("./imagenes/titulo/s10.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 10", size = 20, gravity = "southwest", color = "grey")
+s11.1 <- image_read("./imagenes/titulo/s11.1.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 11 Parte 1", size = 20, gravity = "southwest", color = "grey")
+s11.2 <- image_read("./imagenes/titulo/s11.2.png") %>% image_scale(., "500") %>%  image_annotate(., "Temporada 11 Parte 2", size = 20, gravity = "southwest", color = "grey")
+
+titulo <- c(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11.1, s11.2)
+
+image_animate(image_scale(titulo), fps = 0.5)
+
+```
+
+Se nota que el título por cada temporada se ve más desgastado y el motivo es el paso de los años, ya que cada vez la naturaleza va reclamando más y más las ciudades, ya que la civilización ha terminado casi por completo y eso es lo que se quería reflejar mediante el logo de la serie.
+
+---
+
+### 6. Episodios
+
+Centrándonos ahora en los episodios, la serie tiene alrededor de 177 episodios, divididos en 11 temporadas y cada temporada se divide en dos partes, normalmente de 8 episodio cada una, la primera parte se estrena en octubre y la siguiente en febrero; exceptuando la última temporada que se dividió en tres partes.
+
+En este mapa de calor se pueden observar todas las notas de todos los episodios de la serie.
+
+```{r}
+#| code-fold: true
+
+episodios_calor <- tabla_buena_episodios %>%
+  select(Episodio, Temporada, Nota)
+
+
+aa <- ggplot(episodios_calor, aes(x=Episodio, y= Temporada, fill= Nota)) + 
+  geom_tile() + scale_fill_gradient(low="red", high="green") + lims(x = c(NA,24)) +
+  lims(y = c(1,11)) + scale_x_continuous(
+    breaks = seq(1, 24, 1),
+    limits = c(0, 25)) + scale_y_continuous(
+      breaks = seq(1, 11, 1),
+      limits = c(0, 12))+ theme(panel.grid.major = element_line(linetype = "blank"),
+    panel.grid.minor = element_line(linetype = "blank"),
+    axis.text = element_text(family = "serif",
+        size = 7), panel.background = element_rect(fill = NA), legend.position = "none") +labs(
+    x = "Episodios") + theme(axis.ticks = element_line(linetype = "blank")) + theme(plot.title = element_text(size = 12,
+    face = "bold")) + theme(plot.title = element_text(hjust = 0.5))+labs(caption = "Fuente: Datos de IMBD")
+  
+aa
+
+```
+
+Se puede observar perfectamente como las notas de los episodios fueron mejores durante las 6 primeras temporadas, coincidiendo también cuando más gente veía la serie, fue la “época dorada” de la serie. Desde entonces, tanto las notas como los espectadores descendieron.
+
+Cabe resaltar además que las mejores notas de los episodios son casi siempre el primer episodio, el último que finaliza la primera parte de cada temporada y el último episodio, que es donde más acción y emoción hay.
+
+Continuando con las notas de los episodios y las temporadas, en este “boxplot” se puede ver perfectamente cuáles fueron las mejores temporadas.
+
+::: {.panel-tabset}
+
+### Box-plot
+
+```{r}
+#| code-fold: true
+
+episodios <- tabla_buena_episodios  %>%
+  select(Episodio, Temporada, Nota)
+
+  episodios$Temporada <- factor(episodios$Temporada)
+  
+
+ff <- episodios %>% 
+  ggplot(aes(x = Temporada, y = Nota, fill=Temporada)) +
+  geom_boxplot() + 
+  geom_jitter(aes(color = Episodio), size= 1)+
+  scale_x_discrete(labels = c("S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11")) +
+  theme_ipsum() +
+  xlab("") + ylab("") + theme(plot.subtitle = element_text(family = "serif"),
+    plot.caption = element_text(family = "serif"),
+    axis.title = element_text(family = "serif"),
+    plot.title = element_text(family = "serif"),
+    legend.position = "none") +labs(x = NULL)
+  
+ff
+
+```
+
+### Gráfico de barras
+
+```{r}
+#| code-fold: true
+
+mejor_temporada <- tabla_buena_episodios %>%
+  select(Episodio, Temporada, Nota) %>%
+  group_by(Temporada) %>%
+  summarise(Nota_media = mean(Nota)) %>%
+  mutate(Temporada.f = forcats::as_factor(Temporada)) %>%
+  mutate(Temporada.ff = forcats::fct_reorder(Temporada.f, Nota_media))
+
+
+mejor_temporada <- pjpv.curso.R.2022::pjp_df_decimales(mejor_temporada, nn = 2)
+
+ggplot(data = mejor_temporada, aes(x = Temporada.ff, y = Nota_media, fill=Temporada.ff)) + geom_bar(stat = "identity") + coord_flip() + theme(panel.grid.major = element_line(linetype = "blank"),
+    axis.text = element_text(family = "serif"),
+    panel.background = element_rect(fill = NA),
+    legend.position = "none") +labs(x = "Temporada", y = "Nota media",
+    caption = "Fuente: The Walking Dead Wiki")
+
+```
+
+:::
+
+Como hemos dicho, las mejores temporadas fueron las del principio como la primera, la quinta y la tercera temporada.
+
+Aquí hay unas tablas donde se pueden ver un ránking donde se recogen los mejores y peores episodios y los que han sido más y menos vistos por el público.
+
+::: {.panel-tabset}
+
+### Mejores episodios
+```{r}
+#| code-fold: true
+
+Fotos <- c("./episodios/1.png","./episodios/2.png","./episodios/3.png","./episodios/4.png","./episodios/5.png","./episodios/6.png","./episodios/7.png","./episodios/8.png","./episodios/9.png","./episodios/10.png","./episodios/11.png","./episodios/12.png")
+
+
+mejor_episodio <- tabla_buena_episodios %>%
+  select(Episodio, Temporada, Titulo, Nota, Director, Espectadores_EEUU) %>%
+  slice_max(Nota, n = 12) %>%
+  add_column(Fotos)
+
+tabla_episodio_1 <- mejor_episodio %>% gt() %>% text_transform( locations = cells_body(columns = c(Fotos)), fn = function(x) {gt::local_image(x, height = 80)}) %>% tab_header(title = md("**Los 12 mejores episodios**")) %>%
+  tab_source_note(md("Fuente: Datos de IMDB")) %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "#73F253")),
+    locations = cells_body(
+      columns = Nota,
+      rows = Nota > 9.3)) %>% 
+  cols_align(
+    align = "center",
+    columns = c(Temporada, Episodio, Nota, Fotos, Espectadores_EEUU, Director)) %>% 
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")),
+    locations = cells_body(
+      columns = Titulo)) %>%
+  cols_label(
+    Episodio = md("**Episodio**"),
+    Temporada = md("**Temporada**"),
+    Espectadores_EEUU = md("**Espectadores**"),
+    Titulo = md("**Título**"),
+    Director = md("**Director**"),
+    Fotos = "",
+    Nota = md("**Nota**"))
+  
+tabla_episodio_1
+
+```
+
+### Peores episodios
+```{r}
+#| code-fold: true
+
+Fotos_2 <- c("./episodios/1.1.png","./episodios/2.1.png","./episodios/3.1.png","./episodios/4.1.png","./episodios/5.1.png","./episodios/6.1.png","./episodios/7.1.png","./episodios/8.1.png","./episodios/9.1.png","./episodios/10.1.png","./episodios/11.1.png")
+
+peor_episodio <- tabla_buena_episodios %>%
+  select(Episodio, Temporada, Titulo, Nota, Director, Espectadores_EEUU) %>%
+  slice_min(Nota, n = 11) %>%
+  add_column(Fotos_2)
+
+tabla_episodio_2 <- peor_episodio %>% gt() %>% tab_header(title = md("**Los 11 peores episodios**")) %>% text_transform( locations = cells_body(columns = c(Fotos_2)), fn = function(x) {gt::local_image(x, height = 80)}) %>%
+  tab_source_note(md("Fuente: Datos de IMDB")) %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "#F73C3C")),
+    locations = cells_body(
+      columns = Nota,
+      rows = Nota < 6)) %>% 
+  cols_align(
+    align = "center",
+    columns = c(Temporada, Episodio, Nota, Fotos_2, Espectadores_EEUU, Director)) %>% 
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")),
+    locations = cells_body(
+      columns = Titulo)) %>% tab_footnote("Actor que hace de Abraham Ford en la serie", locations = cells_body(columns = Director, rows = 9:9)) %>%
+  cols_label(
+    Episodio = md("**Episodio**"),
+    Temporada = md("**Temporada**"),
+    Espectadores_EEUU = md("**Espectadores**"),
+    Titulo = md("**Título**"),
+    Director = md("**Director**"),
+    Fotos_2 = "",
+    Nota = md("**Nota**"))
+
+tabla_episodio_2
+
+```
+
+### Más vistos
+```{r}
+#| code-fold: true
+
+Fotos_3 <- c("./episodios/2.png","./episodios/2.1.1.png","./episodios/3.1.1.png","./episodios/8.png","./episodios/5.1.1.png","./episodios/6.1.1.png","./episodios/7.1.1.png","./episodios/8.1.1.png","./episodios/9.1.1.png","./episodios/10.1.1.png")
+
+episodios_mas_vistos <- tabla_buena_episodios %>%
+  select(Episodio, Temporada, Titulo, Espectadores_EEUU, Director) %>%
+  slice_max(Espectadores_EEUU, n = 10) %>%
+  add_column(Fotos_3)
+
+tabla_episodio_3 <- episodios_mas_vistos %>% gt() %>% text_transform( locations = cells_body(columns = c(Fotos_3)), fn = function(x){gt::local_image(x, height = 80)}) %>% tab_style(
+  style = list(
+    cell_fill(color = "#4CCCEC")),
+  locations = cells_body(
+    columns = Espectadores_EEUU,
+    rows = Espectadores_EEUU > 16)) %>%
+  tab_header(title = md("**Los 10  episodios más vistos**")) %>%
+  tab_source_note(md("Fuente: Datos de IMDB")) %>%
+  cols_align(
+    align = "center",
+    columns = c(Temporada, Episodio, Espectadores_EEUU, Fotos_3, Titulo, Director)
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")),
+    locations = cells_body(
+      columns = Titulo)) %>%
+  cols_label(
+    Episodio = md("**Episodio**"),
+    Temporada = md("**Temporada**"),
+    Espectadores_EEUU = md("**Espectadores**"),
+    Titulo = md("**Título**"),
+    Director = md("**Director**"),
+    Fotos_3 = "")
+
+tabla_episodio_3
+
+```
+
+### Menos vistos
+```{r}
+#| code-fold: true
+
+Fotos_4 <- c("./episodios/1.11.png","./episodios/2.11.png","./episodios/3.11.png","./episodios/4.11.png","./episodios/5.11.png","./episodios/6.11.png","./episodios/7.11.png","./episodios/8.11.png","./episodios/9.11.png","./episodios/10.11.png")
+
+episodios_menos_vistos <- tabla_buena_episodios %>%
+  select(Episodio, Temporada, Titulo, Espectadores_EEUU, Director) %>%
+  slice_min(Espectadores_EEUU, n = 10) %>%
+  add_column(Fotos_4)
+
+tabla_episodio_4 <- episodios_menos_vistos %>% gt() %>% text_transform( locations = cells_body(columns = c(Fotos_4)), fn = function(x){gt::local_image(x, height = 80)}) %>% tab_style(
+  style = list(
+    cell_fill(color = "#EFE164")),
+  locations = cells_body(
+    columns = Espectadores_EEUU,
+    rows = Espectadores_EEUU < 1.38)) %>%
+  tab_header(title = md("**Los 10  episodios menos vistos**")) %>%
+  tab_source_note(md("Fuente: Datos de IMDB")) %>%
+  cols_align(
+    align = "center",
+    columns = c(Temporada, Episodio, Espectadores_EEUU, Fotos_4, Titulo, Director)
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")),
+    locations = cells_body(
+      columns = Titulo)) %>%
+  cols_label(
+    Episodio = md("**Episodio**"),
+    Temporada = md("**Temporada**"),
+    Espectadores_EEUU = md("**Espectadores**"),
+    Titulo = md("**Título**"),
+    Director = md("**Director**"),
+    Fotos_4 = "")
+
+tabla_episodio_4
+
+```
+
+:::
+
+### 7. Personajes
+
+Ahora vamos a pasar a analizar una parte importante de la serie, los personajes que aparecen durante el transcurso de la misma.
+
+En el siguiente gráfico podemos ver la evolución de las apariciones de todos los personajes durante la serie.
+
+```{r}
+#| code-fold: true
+
+apariciones2 <- read.csv("datos/apariciones.csv")
+
+grafico_apariciones <- apariciones2 %>%
+  select(-c(Actor,Total)) %>%
+  pivot_longer(cols = c("S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11",), names_to = "Temporadas", values_to = "Apariciones") %>%
+  rename(id = Character, date = Temporadas) %>%
+  group_by(id) %>%
+  mutate(Apariciones_acumuladas = cumsum(Apariciones)) %>%
+  rename(value = Apariciones_acumuladas) %>%
+  select(-c(Apariciones)) %>%
+  mutate(rank = 1:n())
+  
+robservable(
+  "https://observablehq.com/@juba/bar-chart-race",
+  include = c("viewof date", "chart", "draw", "styles"),
+  hide = "draw",
+  input = list(
+    data = grafico_apariciones, 
+    title = "Ranking de apariciones en The Walking Dead",
+    source = "Fuente: The Walking Dead Wiki",
+    subtitle = "Por temporada",
+    tickDuration = 1600,
+    top_n = 10
+  ))
+
+```
+
+Podemos ver que los que tienen más apariciones son obviamente los personajes más importantes y principales como **Rick Grimes**, el personaje principal de la serie hasta que dejó la serie en la temporada 9 (de ahí que no lidere el ranking).
+
+**Daryl Dixon**, uno de los personajes más queridos de la serie y el que cogió la batuta de la serie cuando la dejó Rick.
+
+También **Carol**, que está desde la temporada 1 y es una de los pesos pesados y **Maggie** que al igual que Rick dejó la serie, pero luego la retomó.
+
+Un dato curioso es que *Glenn murió al inicio de la temporada 7* y aun así sigue en el top 10 de apariciones.
+
+---
+
+Un aspecto clave de las series de este estilo son las muertes de los personajes y en este caso, no es una excepción y es que ha habido muchísimas muertes durante el transcurso de la serie.
+
+Aquí se puede ver la proporción de muertes en cada temporada de los personajes principales y recurrentes.
+
+```{r}
+#| code-fold: true
+
+muerte_1 <- muertes %>%
+  group_by(Importancia, Muerte) %>%
+  summarise(Total = n())
+
+proporcion_muertes <- ggplot(muerte_1, aes(fill=Importancia, y=Total, x=Muerte)) + 
+  geom_bar(position="stack", stat="identity") + lims(x = c(1,11)) +
+  lims(y = c(1,35)) + scale_x_continuous(
+    breaks = seq(1, 11, 1),
+    limits = c(0, 12)) + scale_y_continuous(
+      breaks = seq(0, 40, 5),
+      limits = c(0, 35)) + scale_fill_viridis(discrete = T) + theme(panel.grid.major = element_line(linetype = "blank"),
+    panel.grid.minor = element_line(linetype = "blank"),
+    axis.title = element_text(family = "serif"),
+    axis.text = element_text(family = "serif",
+        size = 9, face = "bold", colour = "gray14"),
+    plot.title = element_text(size = 14,
+        face = "bold", hjust = 0.5), legend.text = element_text(family = "serif"),
+    legend.title = element_text(face = "bold"),
+    panel.background = element_rect(fill = NA)) + labs(title = "Muertes de personajes por temporada",
+    x = "Temporada", y = "Muertes Totales",
+    caption = "Fuente: Datos de The Walking Dead Wiki") + theme(plot.subtitle = element_text(family = "serif",
+    size = 8, face = "italic")) +labs(subtitle = "Solo se incluyen las muertes de personajes considerados recurrentes o principales por la Wiki") + theme(plot.subtitle = element_text(size = 10,
+    hjust = 0.5))
+
+proporcion_muertes
+
+```
+
+Obviamente, han muerto más personajes recurrentes que principales como se ve, como es lógico.
+
+---
+
+En esta tabla se exponen las muertes de todos los personajes principales hasta la temporada 9, mostrando la temporada en la que murieron, la causa y el personaje.
+
+```{r}
+#| code-fold: true
+
+Fotos_5 <- c("./imagenes/muerte/gregory.jpg","./imagenes/muerte/shane.jpg","./imagenes/muerte/beth.jpg","./imagenes/muerte/bob.jpg","./imagenes/muerte/gareth.jpg","./imagenes/muerte/spencer.jpg","./imagenes/muerte/carl.jpg","./imagenes/muerte/abraham.jpg","./imagenes/muerte/jessie.jpg","./imagenes/muerte/sasha.jpg","./imagenes/muerte/merle.jpg","./imagenes/muerte/philip.jpg","./imagenes/muerte/hershel.jpg","./imagenes/muerte/andrea.jpg","./imagenes/muerte/simon.jpg")
+
+
+personajes_principales_muertos <- personajes_S9 %>%
+  filter(name %in% c("Shane Walsh","Andrea","Merle Dixon","Hershel Greene","Philip Blake","Gareth","Bob Stookey","Abraham Ford","Jessie Anderson","Spencer Monroe","Sasha Williams","Carl Grimes","Simon","Gregory","Beth Greene")) %>%
+  select(-c(Gender, Hair, Age, Occupation, Family, Last.Appearance, Status, Series.Lifespan, Ethnicity)) %>%
+  rename(Titulo = Death.Episode) %>%
+  add_column(Fotos_5)
+
+tabla_personajes_muertos <- merge(personajes_principales_muertos, tabla_buena_episodios, by= "Titulo") %>%
+  select(name, Actor, Titulo, Temporada, Cause.of.Death, Fotos_5) %>%
+  rename(Nombre = name, Episodio_Muerte = Titulo, Causa_Muerte = Cause.of.Death) 
+
+
+tabla_personajes <- tabla_personajes_muertos %>% gt() %>% text_transform( locations = cells_body(columns = c(Fotos_5)), fn = function(x){gt::local_image(x, height = 80)}) %>%
+  tab_header(title = md("**Muertes de los personajes principales**"),
+             subtitle = md("*Solo hasta la temporada 9*")) %>%
+  tab_source_note(md("Fuente: Datos de [The Walking Dead Wiki](https://walkingdead.fandom.com/wiki/The_Walking_Dead_(TV_Series))")) %>%
+  tab_source_note(md("*En rojo las muertes más importantes de cada temporada*")) %>%
+  cols_label(
+    Episodio_Muerte = md("*Último episodio*")) %>%
+  cols_label(
+    Causa_Muerte = md("**Muerte**")) %>%
+  cols_label(
+    Fotos_5 = md("")) %>%
+  cols_align(
+      align = "center",
+      columns = c(Nombre, Temporada, Causa_Muerte)) %>%
+  gtExtras::gt_highlight_rows(
+    rows = c(2,3,7,8,10,13,14), 
+    fill = "red4",
+    bold_target_only = TRUE,
+    target_col = Temporada
+  ) %>%
+  gtExtras::gt_theme_nytimes()%>%
+  gtExtras::gt_merge_stack(col1 = Nombre, col2 = Actor) 
+
+  
+tabla_personajes
+
+```
+
+---
+
+También hay episodios donde mueren muchos personajes y aquí lo vamos a ver gracias a este gráfico en el que se pueden ver en qué episodios han muerto más personajes.
+
+```{r}
+#| code-fold: true
+
+mas_muertes_episodios <- personajes_S9 %>%
+  select(c(name, Death.Episode, Cause.of.Death, Status)) %>%
+  filter(Status == "Dead") %>%
+  filter(!Death.Episode == "") %>%
+  rename(Nombre = name, Titulo = Death.Episode, Causa_Muerte = Cause.of.Death) %>%
+  select(-Status) %>%
+  group_by(Titulo) %>%
+  summarise(Muertes = n()) %>%
+  filter(Muertes >= 3)
+
+
+mas_muertes_episodios_bien <- merge(mas_muertes_episodios, tabla_buena_episodios, by = 'Titulo') %>%
+  select(Titulo, Muertes, Temporada) 
+
+mas_muertes_episodios_bien$Temporada <- factor(mas_muertes_episodios_bien$Temporada)
+
+
+zz <- ggplot(mas_muertes_episodios_bien, aes(x = Temporada, y = Muertes, fill = Temporada)) + 
+  geom_bar(aes(x = Titulo, y = Muertes, fill = Temporada), stat = "identity", alpha=0.5) +
+  coord_polar(start = 2.94) +
+  geom_segment(data=mas_muertes_episodios_bien, aes(x = 0, y = 16, xend = 30, yend = 16), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=mas_muertes_episodios_bien, aes(x = 0, y = 12, xend = 30, yend = 12), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=mas_muertes_episodios_bien, aes(x = 0, y = 8, xend = 30, yend = 8), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=mas_muertes_episodios_bien, aes(x = 0, y = 4, xend = 30, yend = 4), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  theme_minimal() +
+  theme(legend.position = "none",
+    axis.title = element_blank(),
+    panel.grid = element_blank()) + 
+  theme(plot.subtitle = element_text(size = 8),
+        axis.ticks = element_line(linetype = "blank"),
+        panel.grid.major = element_line(linetype = "blank"),
+        panel.grid.minor = element_line(linetype = "blank"),
+        axis.title = element_text(family = "serif"),
+        axis.text = element_text(size = 6, colour = "gray10",
+                                 hjust = 0, vjust = 100), plot.title = element_text(family = "serif", size = 14, face = "bold", hjust = 0.5),
+        panel.background = element_rect(fill = NA)) + 
+  labs(title = "Capítulos con más muertes de personajes",
+  x = NULL, y = NULL, subtitle = "Muertes de personajes principales y recurrentes") + 
+  theme(axis.text = element_text(size = 8,vjust = 200)) + theme(axis.text = element_text(size = 7), axis.text.x = element_text(family = "serif")) + ylim(-3,18) + theme(axis.text = element_text(size = 8)) + annotate("text", x = "", y = c(4, 8, 12, 16), label = c("4", "8", "12", "16"), color = "brown", size = 4 , angle = 0,  fontface= "bold", hjust = 0)
+
+ 
+zz
+
+```
+
+--- 
+
+Por otro lado, aquí esta la lista de personajes que más gente ha matado en total.
+
+```{r}
+#| code-fold: true
+
+Fotos_6 <- c("./personajes/negan.png","./personajes/eugene.png","./personajes/simon.png","./personajes/carol.png","./personajes/daryl.png","./personajes/rick.png","./personajes/philip.png","./personajes/maggie.png","./personajes/aaron.png","./personajes/morgan.png","./personajes/dwight.png","./personajes/michonne.png","./personajes/ezequiel.png","./personajes/alpha.png","./personajes/jerry.png")
+
+asesinatos <- kill_count %>%
+  slice_max(Total.Kills, n = 15) %>%
+  add_column(Fotos_6) %>%
+  select(Character, Fotos_6, Total.Kills)
+
+asesinatos_tabla <- asesinatos %>% gt() %>% text_transform( locations = cells_body(columns = c(Fotos_6)), fn = function(x){gt::local_image(x, height = 80)}) %>%
+  gtExtras::gt_fa_repeats(
+    column=Total.Kills,
+    palette = "red",
+    name = "person",
+    align='left') %>%
+  tab_header(title = md("**Los 15 personajes con más asesinatos**"),
+ subtitle = md("*Se cuentan tanto las muertes directas como indirectas*")) %>%
+  tab_source_note(md("Fuente: Datos de [The Walking Dead Wiki](https://walkingdead.fandom.com/wiki/The_Walking_Dead_(TV_Series))")) %>%
+  cols_label(
+    Character = md("**Personaje**")) %>%
+  cols_label(
+    Total.Kills = md("**Asesinatos**")) %>%
+  cols_label(
+    Fotos_6 = md("")) %>%
+  cols_align(
+    align = "center",
+    columns = c(Character, Total.Kills))
+
+asesinatos_tabla
+
+```
+
+---
+
+### 8. Zombies
+
+Los zombies son los protagonistas de facto en la serie, ya que sin ellos no habría serie en sí, además son los enemigos principales.
+
+A lo largo de la serie han aparecido muchísimos zombies, aunque lo curioso es que a estos no se les denomina por ese término nunca, se les ha llamado de muchas formas: *caminantes, no muertos, mordedores, podridos…*
+
+Aparte, otro dato curioso, es que según dijeron los creadores de la serie, la proporción de zombies-humanos es de 5000-1, es decir, por cada superviviente, hay unos 5000 zombies; así que con las estadísticas de la población mundial del 2010, que es cuando surgió el brote, quedarían alrededor de 1 millón de personas vivas.
+
+Aquí se puede ver la transformación de una persona que ha sido infectada en zombie.
+
+```{r}
+#| code-fold: true
+
+ss1 <- image_read("./transformacion/1.png") %>% image_scale(., "500")
+ss2 <- image_read("./transformacion/2.png") %>% image_scale(., "500")
+ss3 <- image_read("./transformacion/3.png") %>% image_scale(., "500")
+ss4 <- image_read("./transformacion/4.png") %>% image_scale(., "500")
+ss5 <- image_read("./transformacion/5.png") %>% image_scale(., "500") %>%  image_annotate(., "El sujeto muere", size = 25, gravity = "south", color = "white")
+ss6 <- image_read("./transformacion/6.png") %>% image_scale(., "500") %>%  image_annotate(., "Se empieza a transformar en zombie", size = 25, gravity = "south", color = "white")
+ss7 <- image_read("./transformacion/7.png") %>% image_scale(., "500")
+ss8 <- image_read("./transformacion/8.png") %>% image_scale(., "500")
+
+transformacion <- c(ss1, ss2, ss3, ss4, ss5, ss6, ss7, ss8)
+
+image_animate(image_scale(transformacion), fps = 0.5)
+
+```
+
+Esta es la evolución de zombies asesinados frente a los humanos.
+
+```{r}
+#| code-fold: false
+
+image_1 <- "./imagenes/humans.png" 
+image_2 <- "./imagenes/zombie.png"
+
+
+muertes_serie <- deaths %>%
+  rename(Temporada = Season, Muerte_Secundaria = Recurrent_Deaths, Muerte_Principal = Important_Characters_Death, Zombies_Matados = Zombie_Deaths) %>%
+  mutate(Muertes_Humanos = Muerte_Secundaria+Muerte_Principal) %>%
+  select(-c(Muerte_Secundaria, Muerte_Principal)) %>%
+  mutate(Muerte = Muertes_Humanos+Zombies_Matados)
+
+
+evolucion_muertes <- muertes_serie %>% ggplot(aes(x = Temporada)) +
+  geom_line(aes(y = Muertes_Humanos), color = "green") + geom_image(aes(y = Muertes_Humanos, image = image_1)) +
+  geom_line(aes(y = Zombies_Matados), color = "#6F5B5B") + geom_image(aes(y = Zombies_Matados, image = image_2)) +
+  scale_x_continuous(breaks = seq(1, 11, 1), limits = c(0, 12)) + theme_classic() + labs(y = "Muertes") +
+  transition_reveal(Temporada) 
+ 
+
+animate(evolucion_muertes, width = 500, height = 500, fps = 25, duration = 10, rewind = FALSE)
+
+```
+
+Se ve que en la única temporada donde hubo más muertes de personas que de zombies fue en la temporada 8, que es cuando se dio la gran guerra entre los protagonistas y el enemigo principal en ese momento, [los Salvadores](https://media.tenor.com/TwXTRPdGw2AAAAAC/negan-twd.gif), un grupo de supervivientes que se aprovechaban del resto de supervivientes mediante la violencia.
+
+---
+
+### 9. Showrunners
+
+Ahora vamos a ver a los showrunners. Dicho cargo actúa como el capitán de una serie de televisión. Es la persona que está a cargo de todas las decisiones de guion, producción y dirección, además es el responsable de entregar la serie en tiempo y presupuesto.
+
+En The Walking Dead ha habido alrededor de 54 showrunners distintos durante toda la serie, incluso algún que otro actor de la serie ha actuado como showrunner más adelante en la serie.
+
+En el siguiente gráfico en 3D vamos a ver una comparación entre los showrunners, comparando el número de episodios dirigidos, la nota media de estos y el episodio en el cual más nota obtuvo.
+
+```{r}
+#| code-fold: true
+
+bbbb <- datos_episodios3 %>%
+  select(Directed.by, Episode, Season) %>%
+  group_by(Directed.by) %>%
+  summarise(Numero_episodios=n()) %>%
+  rename(Director = Directed.by)
+
+
+ccc <- tabla_buena_episodios %>%
+  select(Episodio, Nota, Director) %>%
+  filter(Director != "Ernest Dickerson & Gwyneth Horder-Payton") %>%
+  group_by(Director) %>%
+  summarise(Nota_media=mean(Nota))
+
+ddd <- inner_join(bbbb, ccc, by = "Director")
+
+xxx <- tabla_buena_episodios %>%
+  select(Titulo, Director, Nota) %>%
+  rename(Nota_mejor_episodio = Nota) %>%
+  filter(Director != "Ernest Dickerson & Gwyneth Horder-Payton") %>%
+  arrange(desc(Nota_mejor_episodio)) %>%
+  group_by(Director) %>%
+  top_n(1, row_number())
+
+zzz <- tabla_buena_episodios %>%
+  select(Titulo, Director, Nota) %>%
+  rename(Nota_mejor_episodio = Nota) %>%
+  filter(Director != "Ernest Dickerson & Gwyneth Horder-Payton") %>%
+  arrange(Nota_mejor_episodio) %>%
+  group_by(Director) %>%
+  top_n(1, row_number())
+
+
+yyy <- inner_join(ddd, zzz, by = "Director")
+
+
+
+fig3d <- plot_ly(yyy, x = ~Numero_episodios, y = ~Nota_media, z = ~Nota_mejor_episodio, color = ~Director, size = 0.2, alpha = 1)
+fig3d <- fig3d %>% add_markers()
+
+fig3d <- fig3d %>% layout(scene = list(xaxis = list(title = 'Numero de episodios'),
+                                       yaxis = list(title = 'Nota media'),
+                                       zaxis = list(title = 'Nota del mejor episodio')))
+
+fig3d
+
+```
+
+---
+
+### 10. Premios de los actores
+
+Gracias a su actuación en la serie, los actores de The Walking Dead han sido nominados a bastantes premios e incluso han ganado algún que otro. 
+
+Aquí podemos ver un gráfico que muestra las nominaciones y en el otro las veces que han ganado.
+
+```{r}
+#| code-fold: true
+
+premios_actores_1 <- premios_actores %>%
+  rename(Nominaciones = Nominations, Ganador = Awards) %>%
+  group_by(Actor)%>%
+  summarise(Ganadores=sum(Ganador))%>%
+  mutate(Premios=paste(Actor, Ganadores, sep ="\n"))
+
+premios_actores_2 <- premios_actores %>%
+  rename(Nominaciones = Nominations, Ganador = Awards) %>%
+  group_by(Actor)%>%
+  summarise(Nominados=sum(Nominaciones))%>%
+  mutate(Premios=paste(Actor, Nominados, sep ="\n"))
+
+
+
+treemap(premios_actores_2,
+        index="Premios",
+        vSize="Nominados",
+        type="index",
+        palette = "Set2",
+        fontsize.labels=9,
+        title = "Número de nominaciones")
+
+
+treemap(premios_actores_1,
+        index="Premios",
+        vSize="Ganadores",
+        type="index",
+        palette = "Set3",
+        fontsize.labels=9,
+        title = "Número de premios")
+
+```
+
+---
+
+### 11. Conclusiones
+
+Siendo este el trabajo individual y al tener la experiencia del trabajo en grupo, me ha resultado bastante más sencillo poder hacer este trabajo, aparte la temática sobre la cual lo he enfocado me ha gustado bastante más que el del trabajo en grupo, motivo por el que me ha sido más fácil.
+
+He podido usar algunos gráficos del otro trabajo, aunque también he hecho algunos otros más un poco más complejos gracias a los datos que he podido recopilar.
+
+Concluyendo, me ha gustado muchísimo toda la elaboración de este trabajo y no me ha resultado nada pesado hacerlo, por eso y porque creo que me ha salido bastante bien estoy satisfecho con el trabajo.
+
+---
+
+### 12. Referencias
+
+[The Walking Dead Wiki](https://walkingdead.fandom.com/wiki/The_Walking_Dead_(TV_Series))
+
+[Wikipedia](https://en.wikipedia.org/wiki/The_Walking_Dead_(TV_series))
+
+[Kaggle](https://www.kaggle.com/datasets/abdurrakibmollah/the-walking-dead-episodes)
+
+[Blog de Maria Khalusova](https://www.mariakhalusova.com/posts/2018-12-07-getting-data-p2/)
+
+---
+
+
+
+
+

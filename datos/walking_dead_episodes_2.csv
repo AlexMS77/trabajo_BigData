@@ -1,0 +1,178 @@
+Season,Episode,Episode(overall),Title,Directed by,Written by,Original Air date,US viewers(millions)
+1,1,1,Days Gone Bye,Frank Darabont,Teleplay by: Frank Darabont,10/31/2010,5.35
+1,2,2,Guts,Michelle MacLaren,Frank Darabont,11/7/2010,4.71
+1,3,3,Tell It to the Frogs,Gwyneth Horder-Payton,Story by: Charles H. Eglee & Jack LoGiudice & Teleplay by: Charles H. Eglee & Jack LoGiudice and Frank Darabont,11/14/2010,5.07
+1,4,4,Vatos,Johan Renck,Robert Kirkman,11/21/2010,4.75
+1,5,5,Wildfire,Ernest Dickerson,Glen Mazzara,11/28/2010,5.56
+1,6,6,TS-19,Guy Ferland,Adam Fierro and Frank Darabont,12/5/2010,5.97
+2,1,7,What Lies Ahead,Ernest Dickerson & Gwyneth Horder-Payton,Ardeth Bey and Robert Kirkman,10/16/2011,7.26
+2,2,8,Bloodletting,Ernest Dickerson,Glen Mazzara,10/23/2011,6.7
+2,3,9,Save the Last One,Phil Abraham,Scott M. Gimple,10/30/2011,6.1
+2,4,10,Cherokee Rose,Billy Gierhart,Evan Reilly,11/6/2011,6.29
+2,5,11,Chupacabra,Guy Ferland,David Leslie Johnson,11/13/2011,6.12
+2,6,12,Secrets,David Boyd,Angela Kang,11/20/2011,6.08
+2,7,13,Pretty Much Dead Already,Michelle MacLaren,Scott M. Gimple,11/27/2011,6.62
+2,8,14,Nebraska,Clark Johnson,Evan Reilly,2/12/2012,8.1
+2,9,15,Triggerfinger,Billy Gierhart,David Leslie Johnson,2/19/2012,6.89
+2,10,16,18 Miles Out,Ernest Dickerson,Scott M. Gimple & Glen Mazzara,2/26/2012,7.04
+2,11,17,Judge Jury Executioner,Greg Nicotero,Angela Kang,3/4/2012,6.77
+2,12,18,Better Angels,Guy Ferland,Evan Reilly & Glen Mazzara,3/11/2012,6.89
+2,13,19,Beside the Dying Fire,Ernest Dickerson,Robert Kirkman & Glen Mazzara,3/18/2012,8.99
+3,1,20,Seed,Ernest Dickerson,Glen Mazzara,10/14/2012,10.87
+3,2,21,Sick,Billy Gierhart,Nichole Beattie,10/21/2012,9.55
+3,3,22,Walk with Me,Guy Ferland,Evan Reilly,10/28/2012,10.51
+3,4,23,Killer Within,Guy Ferland,Sang Kyu Kim,11/4/2012,9.27
+3,5,24,Say the Word,Greg Nicotero,Angela Kang,11/11/2012,10.37
+3,6,25,Hounded,Dan Attias,Scott M. Gimple,11/18/2012,9.21
+3,7,26,When the Dead Come Knocking,Dan Sackheim,Frank Renzulli,11/25/2012,10.43
+3,8,27,Made to Suffer,Billy Gierhart,Robert Kirkman,12/2/2012,10.48
+3,9,28,The Suicide King,Lesli Linka Glatter,Evan Reilly,2/10/2013,12.26
+3,10,29,Home,Seith Mann,Nichole Beattie,2/17/2013,11.05
+3,11,30,I Ain't a Judas,Greg Nicotero,Angela Kang,2/24/2013,11.01
+3,12,31,Clear,Tricia Brock,Scott M. Gimple,3/3/2013,11.3
+3,13,32,Arrow on the Doorpost,David Boyd,Ryan C. Coleman,3/10/2013,11.46
+3,14,33,Prey,Stefan Schwartz,Glen Mazzara & Evan Reilly,3/17/2013,10.84
+3,15,34,This Sorrowful Life,Greg Nicotero,Scott M. Gimple,3/24/2013,10.99
+3,16,35,Welcome to the Tombs,Ernest Dickerson,Glen Mazzara,3/31/2013,12.42
+4,1,36,30 Days Without an Accident,Greg Nicotero,Scott M. Gimple,10/13/2013,16.11
+4,2,37,Infected,Guy Ferland,Angela Kang,10/20/2013,13.95
+4,3,38,Isolation,Dan Sackheim,Robert Kirkman,10/27/2013,12.92
+4,4,39,Indifference,Tricia Brock,Matthew Negrete,11/3/2013,13.31
+4,5,40,Internment,David Boyd,Channing Powell,11/10/2013,12.2
+4,6,41,Live Bait,Michael Uppendahl,Nichole Beattie,11/17/2013,12
+4,7,42,Dead Weight,Jeremy Podeswa,Curtis Gwinn,11/24/2013,11.29
+4,8,43,Too Far Gone,Ernest Dickerson,Seth Hoffman,12/1/2013,12.05
+4,9,44,After,Greg Nicotero,Robert Kirkman,2/9/2014,15.76
+4,10,45,Inmates,Tricia Brock,Matthew Negrete & Channing Powell,2/16/2014,13.34
+4,11,46,Claimed,Seith Mann,Nichole Beattie & Seth Hoffman,2/23/2014,13.12
+4,12,47,Still,Julius Ramsay,Angela Kang,3/2/2014,12.61
+4,13,48,Alone,Ernest Dickerson,Curtis Gwinn,3/9/2014,12.65
+4,14,49,The Grove,Michael E. Satrazemis,Scott M. Gimple,3/16/2014,12.87
+4,15,50,Us,Greg Nicotero,Nichole Beattie & Seth Hoffman,3/23/2014,13.47
+4,16,51,A,Michelle MacLaren,Scott M. Gimple & Angela Kang,3/30/2014,15.68
+5,1,52,No Sanctuary,Greg Nicotero,Scott M. Gimple,10/12/2014,17.29
+5,2,53,Strangers,David Boyd,Robert Kirkman,10/19/2014,15.14
+5,3,54,Four Walls and a Roof,Jeffrey F. January,Angela Kang & Corey Reed,10/26/2014,13.8
+5,4,55,Slabtown,Michael E. Satrazemis,Matthew Negrete & Channing Powell,11/2/2014,14.52
+5,5,56,Self Help,Ernest Dickerson,Heather Bellson & Seth Hoffman,11/9/2014,13.53
+5,6,57,Consumed,Seith Mann,Matthew Negrete & Corey Reed,11/16/2014,14.07
+5,7,58,Crossed,Billy Gierhart,Seth Hoffman,11/23/2014,13.33
+5,8,59,Coda,Ernest Dickerson,Angela Kang,11/30/2014,14.81
+5,9,60,What Happened and What's Going On,Greg Nicotero,Scott M. Gimple,2/8/2015,15.64
+5,10,61,Them,Julius Ramsay,Heather Bellson,2/15/2015,12.27
+5,11,62,The Distance,Larysa Kondracki,Seth Hoffman,2/22/2015,13.44
+5,12,63,Remember,Greg Nicotero,Channing Powell,3/1/2015,14.43
+5,13,64,Forget,David Boyd,Corey Reed,3/8/2015,14.53
+5,14,65,Spend,Jennifer Lynch,Matthew Negrete,3/15/2015,13.78
+5,15,66,Try,Michael E. Satrazemis,Angela Kang,3/22/2015,13.76
+5,16,67,Conquer,Greg Nicotero,Scott M. Gimple & Seth Hoffman,3/29/2015,15.78
+6,1,68,First Time Again,Greg Nicotero,Scott M. Gimple & Matthew Negrete,10/11/2015,14.63
+6,2,69,JSS,Jennifer Lynch,Seth Hoffman,10/18/2015,12.18
+6,3,70,Thank You,Michael Slovis,Angela Kang,10/25/2015,13.14
+6,4,71,Here's Not Here,Stephen Williams,Scott M. Gimple,11/1/2015,13.34
+6,5,72,Now,Avi Youabian,Corey Reed,11/8/2015,12.44
+6,6,73,Always Accountable,Jeffrey F. January,Heather Bellson,11/15/2015,12.87
+6,7,74,Heads Up,David Boyd,Channing Powell,11/22/2015,13.22
+6,8,75,Start to Finish,Michael E. Satrazemis,Matthew Negrete,11/29/2015,13.98
+6,9,76,No Way Out,Greg Nicotero,Seth Hoffman,2/14/2016,13.74
+6,10,77,The Next World,Kari Skogland,Angela Kang & Corey Reed,2/21/2016,13.48
+6,11,78,Knots Untie,Michael E. Satrazemis,Matthew Negrete & Channing Powell,2/28/2016,12.79
+6,12,79,Not Tomorrow Yet,Greg Nicotero,Seth Hoffman,3/6/2016,12.82
+6,13,80,The Same Boat,Billy Gierhart,Angela Kang,3/13/2016,12.53
+6,14,81,Twice as Far,Alrick Riley,Matthew Negrete,3/20/2016,12.69
+6,15,82,East,Michael E. Satrazemis,Story by: Scott M. Gimple & Channing Powell & Teleplay by: Channing Powell,3/27/2016,12.38
+6,16,83,Last Day on Earth,Greg Nicotero,Scott M. Gimple & Matthew Negrete,4/3/2016,14.19
+7,1,84,The Day Will Come When You Won't Be,Greg Nicotero,Scott M. Gimple,10/23/2016,17.03
+7,2,85,The Well,Greg Nicotero,Matthew Negrete,10/30/2016,12.46
+7,3,86,The Cell,Alrick Riley,Angela Kang,11/6/2016,11.72
+7,4,87,Service,David Boyd,Corey Reed,11/13/2016,11.4
+7,5,88,Go Getters,Darnell Martin,Channing Powell,11/20/2016,11
+7,6,89,Swear,Michael E. Satrazemis,David Leslie Johnson,11/27/2016,10.4
+7,7,90,Sing Me a Song,Rosemary Rodriguez,Angela Kang & Corey Reed,12/4/2016,10.48
+7,8,91,Hearts Still Beating,Michael E. Satrazemis,Matthew Negrete & Channing Powell,12/11/2016,10.58
+7,9,92,Rock in the Road,Greg Nicotero,Angela Kang,2/12/2017,12
+7,10,93,New Best Friends,Jeffrey F. January,Channing Powell,2/19/2017,11.08
+7,11,94,Hostiles and Calamities,Kari Skogland,David Leslie Johnson,2/26/2017,10.42
+7,12,95,Say Yes,Greg Nicotero,Matthew Negrete,3/5/2017,10.16
+7,13,96,Bury Me Here,Alrick Riley,Scott M. Gimple,3/12/2017,10.68
+7,14,97,The Other Side,Michael E. Satrazemis,Angela Kang,3/19/2017,10.32
+7,15,98,Something They Need,Michael Slovis,Corey Reed,3/26/2017,10.54
+7,16,99,The First Day of the Rest of Your Life,Greg Nicotero,Scott M. Gimple & Angela Kang & Matthew Negrete,4/2/2017,11.31
+8,1,100,Mercy,Greg Nicotero,Scott M. Gimple,10/22/2017,11.44
+8,2,101,The Damned,Rosemary Rodriguez,Matthew Negrete & Channing Powell,10/29/2017,8.92
+8,3,102,Monsters,Greg Nicotero,Matthew Negrete & Channing Powell,11/5/2017,8.52
+8,4,103,Some Guy,Dan Liu,David Leslie Johnson-McGoldrick,11/12/2017,8.69
+8,5,104,The Big Scary U,Michael E. Satrazemis,Story by: Scott M. Gimple & David Leslie Johnson-McGoldrick & Angela Kang & Teleplay by: David Leslie Johnson-McGoldrick & Angela Kang,11/19/2017,7.85
+8,6,105,The King the Widow and Rick,John Polson,Angela Kang & Corey Reed,11/26/2017,8.28
+8,7,106,Time for After,Larry Teng,Matthew Negrete & Corey Reed,12/3/2017,7.47
+8,8,107,How It's Gotta Be,Michael E. Satrazemis,David Leslie Johnson-McGoldrick & Angela Kang,12/10/2017,7.89
+8,9,108,Honor,Greg Nicotero,Matthew Negrete & Channing Powell,2/25/2018,8.28
+8,10,109,The Lost and the Plunderers,David Boyd,Angela Kang & Channing Powell & Corey Reed,3/4/2018,6.82
+8,11,110,Dead or Alive Or,Michael E. Satrazemis,Eddie Guzelian,3/11/2018,6.6
+8,12,111,The Key,Greg Nicotero,Corey Reed & Channing Powell,3/18/2018,6.66
+8,13,112,Do Not Send Us Astray,Jeffrey F. January,Angela Kang & Matthew Negrete,3/25/2018,6.77
+8,14,113,Still Gotta Mean Something,Michael E. Satrazemis,Eddie Guzelian,4/1/2018,6.3
+8,15,114,Worth,Michael Slovis,David Leslie Johnson-McGoldrick & Corey Reed,4/8/2018,6.67
+8,16,115,Wrath,Greg Nicotero,Scott M. Gimple & Angela Kang & Matthew Negrete,4/15/2018,7.92
+9,1,116,A New Beginning,Greg Nicotero,Angela Kang,10/7/2018,6.08
+9,2,117,The Bridge,Daisy von Scherler Mayer,David Leslie Johnson-McGoldrick,10/14/2018,4.95
+9,3,118,Warning Signs,Dan Liu,Corey Reed,10/21/2018,5.04
+9,4,119,The Obliged,Rosemary Rodriguez,Geraldine Inoa,10/28/2018,5.1
+9,5,120,What Comes After,Greg Nicotero,Story by: Scott M. Gimple & Matthew Negrete & Teleplay by: Matthew Negrete,11/4/2018,5.41
+9,6,121,Who Are You Now?,Larry Teng,Eddie Guzelian,11/11/2018,5.4
+9,7,122,Stradivarius,Michael Cudlitz,Vivian Tse,11/18/2018,4.79
+9,8,123,Evolution,Michael E. Satrazemis,David Leslie Johnson-McGoldrick,11/25/2018,5.09
+9,9,124,Adaptation,Greg Nicotero,Corey Reed,2/10/2019,5.16
+9,10,125,Omega,David Boyd,Channing Powell,2/17/2019,4.54
+9,11,126,Bounty,Meera Menon,Matthew Negrete,2/24/2019,4.39
+9,12,127,Guardians,Michael E. Satrazemis,LaToya Morgan,3/3/2019,4.71
+9,13,128,Chokepoint,Liesl Tommy,Eddie Guzelian & David Leslie Johnson-McGoldrick,3/10/2019,4.83
+9,14,129,Scars,Millicent Shelton,Corey Reed & Vivian Tse,3/17/2019,4.57
+9,15,130,The Calm Before,Laura Belsey,Geraldine Inoa & Channing Powell,3/24/2019,4.15
+9,16,131,The Storm,Greg Nicotero,Angela Kang & Matthew Negrete,3/31/2019,5.02
+10,1,132,Lines We Cross,Greg Nicotero,Angela Kang,10/6/2019,4
+10,2,133,We Are the End of the World,Greg Nicotero,Nicole Mirante-Matthews,10/13/2019,3.47
+10,3,134,Ghosts,David Boyd,Jim Barnes,10/20/2019,3.48
+10,4,135,Silence the Whisperers,Michael Cudlitz,Geraldine Inoa,10/27/2019,3.31
+10,5,136,What It Always Is,Laura Belsey,Eli Jorné,11/3/2019,3.09
+10,6,137,Bonds,Dan Liu,Kevin Deiboldt,11/10/2019,3.21
+10,7,138,Open Your Eyes,Michael Cudlitz,Corey Reed,11/17/2019,3.31
+10,8,139,The World Before,John Dahl,Julia Ruchman,11/24/2019,3.21
+10,9,140,Squeeze,Michael E. Satrazemis,David Leslie Johnson-McGoldrick,2/23/2020,3.52
+10,10,141,Stalker,Bronwen Hughes,Jim Barnes,3/1/2020,3.16
+10,11,142,Morning Star,Michael E. Satrazemis,Julia Ruchman & Vivian Tse,3/8/2020,2.93
+10,12,143,Walk with Us,Greg Nicotero,Eli Jorné & Nicole Mirante-Matthews,3/15/2020,3.49
+10,13,144,What We Become,Sharat Raju,Vivian Tse,3/22/2020,3.66
+10,14,145,Look at the Flowers,Daisy von Scherler Mayer,Channing Powell,3/29/2020,3.26
+10,15,146,The Tower,Laura Belsey,Kevin Deiboldt & Julia Ruchman,4/5/2020,3.49
+10,16,147,A Certain Doom,Greg Nicotero,Story by: Jim Barnes & Eli Jorné & Corey Reed & Teleplay by: Corey Reed,10/4/2020,2.73
+10,17,148,Home Sweet Home,David Boyd,Kevin Deiboldt & Corey Reed,2/28/2021,2.89
+10,18,149,Find Me,David Boyd,Nicole Mirante-Matthews,3/7/2021,2.26
+10,19,150,One More,Laura Belsey,Erik Mountain & Jim Barnes,3/14/2021,2.17
+10,20,151,Splinter,Laura Belsey,Julia Ruchman & Vivian Tse,3/21/2021,2.11
+10,21,152,Diverged,David Boyd,Heather Bellson,3/28/2021,1.94
+10,22,153,Here's Negan,Laura Belsey,David Leslie Johnson-McGoldrick,4/4/2021,2.12
+11,1,154,Acheron: Part I,Kevin Dowling,Angela Kang & Jim Barnes,8/22/2021,2.22
+11,2,155,Acheron: Part II,Kevin Dowling,Angela Kang & Jim Barnes,8/29/2021,1.99
+11,3,156,Hunted,Frederick E.O. Toye,Vivian Tse,9/5/2021,1.87
+11,4,157,Rendition,Frederick E.O. Toye,Nicole Mirante-Matthews,9/12/2021,1.88
+11,5,158,Out of the Ashes,Greg Nicotero,LaToya Morgan,9/19/2021,1.91
+11,6,159,On the Inside,Greg Nicotero,Kevin Deiboldt,9/26/2021,1.78
+11,7,160,Promises Broken,Sharat Raju,Julia Ruchman,10/3/2021,1.89
+11,8,161,For Blood,Sharat Raju,Erik Mountain,10/10/2021,1.91
+11,9,162,No Other Way,Jon Amiel,Corey Reed,2/20/2022,1.76
+11,10,163,New Haunts,Jon Amiel,Magali Lozano,2/27/2022,1.6
+11,11,164,Rogue Element,Michael Cudlitz,David Leslie Johnson-McGoldrick,3/6/2022,1.67
+11,12,165,The Lucky Ones,Tawnia McKiernan,Vivian Tse,3/13/2022,1.58
+11,13,166,Warlords,Loren Yaconelli,Jim Barnes & Erik Mountain,3/20/2022,1.79
+11,14,167,The Rotten Core,Marcus Stokes,Erik Mountain & Jim Barnes,3/27/2022,1.55
+11,15,168,Trust,Lily Mariye,Kevin Deiboldt,4/3/2022,1.67
+11,16,169,Acts of God,Catriona McKenzie,Nicole Mirante-Matthews,4/10/2022,1.61
+11,17,170,Lockdown,Greg Nicotero,Julia Ruchman,10/2/2022,1.19
+11,18,171,A New Deal,Jeffrey F. January,Corey Reed,10/9/2022,1.35
+11,19,172,Variant,Karen Gaviola,Vivian Tse,10/16/2022,1.36
+11,20,173,What's Been Lost,Aisha Tyler,Erik Mountain,10/23/2022,1.36
+11,21,174,Outpost 22,Tawnia McKiernan,Jim Barnes,10/30/2022,1.50
+11,22,175,Faith,Rose Troche,Nicole Mirante-Matthews & Magali Lozano,11/6/2022,1.39
+11,23,176,Family,Sharat Raju,Magali Lozano & Erik Mountain & Kevin Deiboldt,11/13/2022,1.47
+11,24,177,Rest in Peace,Greg Nicotero,Angela Kang,11/20/2022,2.27
